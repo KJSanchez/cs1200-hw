@@ -1,41 +1,52 @@
-// =======================================================================
-//
-// IMPORTANT NOTE: You should edit this file
-//
-//    This file provides the code for ASCII art printing of trains.
-//    You should implement all of the functions prototyped in
-//    "traincar_prototypes.h" in this file.
-//
-// =======================================================================
-
-
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <cassert>
 #include "traincar.h"
+#include <cassert>
 #include <cmath>
+#include <iomanip>
+#include <iostream>
+#include <string>
+#include <tuple>
 
-// =======================================================================
-// =======================================================================
+/**
+ total_weight
+ num_engines
+ num_freight_cars
+ num_passenger_cars
+ num_dining_cars
+ num_sleeping_cars
+ */
+std::tuple<int, int, int, int, int, int> CountEnginesAndTotalWeight(TrainCar *train) {
+  return {0, 0, 0, 0, 0, 0};
+}
+
+int CalculateSpeed(TrainCar *train) {
+  return 0;
+};
+
+int AverageDistanceToDiningCar(TrainCar *train) {
+  return 0;
+};
+
+int ClosestEngineToSleeperCar(TrainCar *train) {
+  return 0;
+};
 
 // This helper function checks that the forward and backward pointers
 // in a doubly-linked structure are correctly and consistently assigned.
-void SanityCheck(TrainCar* train) {
+void SanityCheck(TrainCar *train) {
   // an empty train is valid
-  if (train == NULL) return;
-  assert (train->prev == NULL);
+  if (train == NULL)
+    return;
+  assert(train->prev == NULL);
   TrainCar *tmp = train;
   while (tmp->next != NULL) {
     // the next train better point back to me
-    assert (tmp->next->prev == tmp);
+    assert(tmp->next->prev == tmp);
     tmp = tmp->next;
   }
 }
 
-
 // This helper function prints one of the 5 rows of the TrainCar ASCII art
-void PrintHelper(TrainCar* t, int which_row) {
+void PrintHelper(TrainCar *t, int which_row) {
   if (t == NULL) {
     // end of the line
     std::cout << std::endl;
@@ -78,7 +89,7 @@ void PrintHelper(TrainCar* t, int which_row) {
     } else if (t->isDiningCar()) {
       std::cout << "|  dine |";
     } else {
-      assert (t->isSleepingCar());
+      assert(t->isSleepingCar());
       std::cout << "| sleep |";
     }
   } else if (which_row == 4) {
@@ -86,7 +97,7 @@ void PrintHelper(TrainCar* t, int which_row) {
     std::cout << "-oo---oo-";
   }
 
-  // between cars display the '+' link symbol on the 5th row 
+  // between cars display the '+' link symbol on the 5th row
   // (only if there is a next car)
   if (t->next != NULL) {
     if (which_row == 4) {
@@ -100,12 +111,10 @@ void PrintHelper(TrainCar* t, int which_row) {
   PrintHelper(t->next, which_row);
 }
 
-
-void PrintTrain(TrainCar* train) {
-  
-  if (train == NULL) { 
-    std::cout << "PrintTrain: empty train!" << std::endl; 
-    return; 
+void PrintTrain(TrainCar *train) {
+  if (train == NULL) {
+    std::cout << "PrintTrain: empty train!" << std::endl;
+    return;
   }
 
   // Print each of the 5 rows of the TrainCar ASCII art
@@ -115,18 +124,18 @@ void PrintTrain(TrainCar* train) {
   PrintHelper(train, 3);
   PrintHelper(train, 4);
 
-  /*  
-  // UNCOMMENT THESE ADDITIONAL STATISTICS AS YOU WORK
-
-  int total_weight,num_engines,num_freight_cars,num_passenger_cars,num_dining_cars,num_sleeping_cars;
-  CountEnginesAndTotalWeight
-    (train, total_weight,
-     num_engines, num_freight_cars, num_passenger_cars, num_dining_cars, num_sleeping_cars);
-  int total_cars = num_engines+num_freight_cars+num_passenger_cars+num_dining_cars+num_sleeping_cars;
+  auto [total_weight,
+        num_engines,
+        num_freight_cars,
+        num_passenger_cars,
+        num_dining_cars,
+        num_sleeping_cars] = CountEnginesAndTotalWeight(train);
+  int total_cars = num_engines + num_freight_cars + num_passenger_cars + num_dining_cars + num_sleeping_cars;
   float speed = CalculateSpeed(train);
   std::cout << "#cars = " << total_cars;
   std::cout << ", total weight = " << total_weight;
-  std::cout << ", speed on 2% incline = " << std::setprecision(1) << std::fixed << speed;
+  std::cout << ", speed on 2% incline = " << std::setprecision(1) << std::fixed
+            << speed;
 
   // If there is at least one passenger car, print the average
   // distance to dining car statistic
@@ -137,7 +146,8 @@ void PrintTrain(TrainCar* train) {
       // dining car (by an engine car) then the distance is infinity!
       std::cout << ", avg distance to dining = inf";
     } else {
-      std::cout << ", avg distance to dining = " << std::setprecision(1) << std::fixed << dist_to_dining;
+      std::cout << ", avg distance to dining = " << std::setprecision(1)
+                << std::fixed << dist_to_dining;
     }
   }
 
@@ -149,10 +159,9 @@ void PrintTrain(TrainCar* train) {
   }
 
   std::cout << std::endl;
-  */
 }
 
-
-// =======================================================================
-// =======================================================================
-
+std::ostream &operator<<(std::ostream &os, const TrainCar &car) {
+  os << car.getType() << " " << car.getID();
+  return os;
+}
