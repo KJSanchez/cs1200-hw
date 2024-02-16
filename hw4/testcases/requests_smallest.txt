@@ -1,0 +1,14 @@
+dvd "Boyhood" 3
+customer Keenan Sanchez 1
+  "Boyhood"
+ship
+dvd "Grizzly Man" 3
+print_customer Keenan Sanchez
+add_preference Keenan Sanchez "Grizzly Man"
+ship
+print_customer Keenan Sanchez
+print_dvd "Boyhood"
+return_oldest Keenan Sanchez
+print_customer Keenan Sanchez
+return_newest Keenan Sanchez
+print_customer Keenan Sanchez
