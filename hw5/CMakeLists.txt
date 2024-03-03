@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.12)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-add_compile_options(-g -Wall)
+add_compile_options(-g -Wall -pedantic)
 
 project(hw5 CXX)
 
@@ -23,8 +23,11 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 add_executable(main main.cpp traincar.cpp)
 add_executable(test test.cpp traincar.cpp)
+add_executable(test2 test_cpp_semantics.cpp)
+
 
 target_include_directories(main PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(test PRIVATE Catch2::Catch2)
+target_link_libraries(test2 PRIVATE Catch2::Catch2)
 # target_link_libraries(main Boost::Boost)
