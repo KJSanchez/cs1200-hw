@@ -1,8 +1,22 @@
 #define CATCH_CONFIG_MAIN
 #include "undoarray.h"
 #include <catch2/catch.hpp>
+#include <iostream>
 #include <stdexcept>
 #include <string>
+
+using std::cout, std::endl;
+
+TEST_CASE("sizeof", "size") {
+  int a[] = {1, 2, 3};
+  REQUIRE(sizeof(a) / sizeof(int) == 3);
+
+  UndoArray<std::string> ua(300);
+  REQUIRE(ua.values_[0] == nullptr);
+  REQUIRE(sizeof(ua.values_[0]) == 8);
+  REQUIRE(sizeof(nullptr) == 8);
+  REQUIRE(sizeof(unsigned int) == 4);
+}
 
 TEST_CASE("test", "test") {
   UndoArray<std::string> ua(2);
