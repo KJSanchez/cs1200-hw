@@ -1,0 +1,7 @@
+AllowShortFunctionsOnASingleLine: None
+BasedOnStyle: LLVM
+ColumnLimit: 0
+BinPackArguments: false
+BinPackParameters: false
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
